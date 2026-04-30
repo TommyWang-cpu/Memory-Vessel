@@ -9,6 +9,8 @@ int currentImage = 0;
 float sizeValue = 100;
 float sizeSliderX = 20, sizeSliderY = 330;
 
+boolean hide = true;
+
 SinOsc[] notes;
 
 float[] freqs = {
@@ -66,7 +68,7 @@ void draw() {
   background(240);
   lights();
   
-  drawImage();
+  if(hide) drawImage();
   
   translate(width/2, height/2, zoom);
   
@@ -232,8 +234,13 @@ void mousePressed() {
       playNote(i);
     }
   }
+  if (mouseX > width-155 && mouseX < width &&
+        mouseY > 75 && mouseY < 125){
+      hide = !hide;
+     }
+  
 }
-
+//rect(width-80 - 75, 75, 150, 50);
 void mouseReleased() {
   stopAll();
 }
@@ -293,14 +300,14 @@ void drawCylinderTopCap(float r, float h) {
 
 void drawImage(){
   imageMode(CENTER);
-  image(images[currentImage], width/2, 100, sizeValue, sizeValue);
+  image(images[currentImage], width/2, 100, sizeValue, sizeValue); 
   
   fill(100, 200, 100);
   rect(width-80 - 75, 75, 150, 50);
   fill(0);
   textSize(18);
   text("Hide", width-80, 100);
-  drawSlider(sizeSliderX, sizeSliderY, sizeValue, 1, 10, "Size", color(255,100,100));
+  drawSlider(sizeSliderX, sizeSliderY, sizeValue, 1, 10, "Size", color(255,100,100)); 
 }
 
 void drawSlider(float xPos, float yPos, float value, float minV, float maxV, String label, color c) {
